@@ -1,4 +1,7 @@
 /* error codes  */
+#ifndef ERRORS_H
+#define ERRORS_H
+
 #define INSUFFICIENT_NUMBER_OF_PARAMETERS         1
 #define INVALID_INPUT_CHARACTER                   2
 #define INVALID_INDEX                             3
@@ -11,3 +14,18 @@
 #define INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS  10
 #define ERROR_OPENING_CONFIGURATION_FILE          11
 #define NO_ERROR                                  0
+
+#include <iostream>
+#include <fstream>
+#include <cstdio>
+#include <cstring>
+#include <cctype>
+#include <vector>
+
+using namespace std;
+
+std::vector <int> check_general(const char* path);
+int check_error();
+char find_pair(std::vector <int> config, char input);
+
+#endif
