@@ -15,13 +15,6 @@
 #define ERROR_OPENING_CONFIGURATION_FILE          11
 #define NO_ERROR                                  0
 
-#include <iostream>
-#include <fstream>
-#include <cstdio>
-#include <cstring>
-#include <cctype>
-#include <vector>
-
 using namespace std;
 
 std::vector <int> check_general(const char* path);

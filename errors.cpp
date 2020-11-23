@@ -1,3 +1,9 @@
+#include <iostream>
+#include <fstream>
+#include <cstdio>
+#include <cstring>
+#include <cctype>
+#include <vector>
 #include "errors.h"
 
 using namespace std;
@@ -39,16 +45,16 @@ std::vector <int> check_general(const char* path){
             // if number already exists in config
             // sth mapped twice
             if ( find(config.begin(), config.end(), number) != config.end() ){
-                if (strchr(path,'plug')!= NULL){
+                if (strchr(path,'p')!= NULL){
                     cerr << "IMPOSSIBLE_PLUGBOARD_CONFIGURATION" << endl;
                     exit(5);                }
                 
-                if (strchr(path,'refl')!= NULL){
+                if (strchr(path,'f')!= NULL){
                     cerr << "INVALID_REFLECTOR_MAPPING" << endl;
                     exit(9);
                 }
                 //the first 26 numbers cannot repeat in roto config
-                if (config.size() < 26 && strchr(path,'roto')!= NULL){
+                if (config.size() < 26 && strchr(path,'o')!= NULL){
                     cerr << "INVALID_ROTOR_MAPPING" << endl;
                     exit(7);                }
             }

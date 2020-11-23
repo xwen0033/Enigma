@@ -50,11 +50,11 @@ int main(int argc, char **argv){
             cerr << "INVALID_INPUT_CHARACTER" << endl;
             exit(2);
         }
-        
+        cout << message << endl;
     }
     //cout << "The encrypted/decrypted message is: " << endl;
-    cout << "You entered: " << message << endl;
-    cout << message << endl;
+    //cout << "You entered: " << message << endl;
+    
     
     cout << "NO_ERROR" << endl;
     return 0;
