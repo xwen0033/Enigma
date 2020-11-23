@@ -9,10 +9,9 @@
 using namespace std;
 
 class Reflector {
-    vector <int> config;
+    int reflectsto[26];
 public:
-    int error;
-    Reflector(const char* path);
+    Reflector(vector <int> config);
     char encrypt(const char input);
 };
 

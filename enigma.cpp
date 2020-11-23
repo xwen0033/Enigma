@@ -3,11 +3,16 @@
 using namespace std;
 
 Enigma::Enigma(std::vector <vector <int> > config){
-    plugboard = NULL;
-    reflector = NULL;
+    plugboard = new Plugboard(config[0]);
+    reflector = new Reflector(config[1]);
     *rotor = NULL;
-    num_rotor = 0;
-    
+    num_rotor = config.size()-3;
+    if (num_rotor > 0){
+        for (int i = 0; i < num_rotor; i++){
+            int top = config[num_rotor+3][i];
+            rotor[i] = new Rotor(config[2+i],top);
+        }
+    }
 }
 
 char Enigma::encrypt(char input){
@@ -23,7 +28,6 @@ char Enigma::encrypt(char input){
                 }
             }
         }
-        
     }
     
     //input goes through plugboard

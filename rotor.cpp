@@ -2,17 +2,24 @@
 
 using namespace std;
 
-Rotor::Rotor(const char* path){
+Rotor::Rotor(vector <int> config, int topp){
     notch = NULL;
-    num_notch = 0;
-    top = 0;
+
+    //initialise wiring
+    for (int i = 0; i < 26; i++){
+        wiring[0][i]=i;
+        wiring[1][i]=config[i];
+    }
     
-//    if (num_notch > 0){
-//        notch = new int[num_notch];
-//        for (int i = 0; i < num_notch; i++){
-//            notch[i] = config[26+i];
-//        }
-//    }
+    num_notch = config.size() - 26;
+    top = topp;
+    
+    if (num_notch > 0){
+        notch = new int[num_notch];
+        for (int i = 0; i < num_notch; i++){
+            notch[i] = config[26+i];
+        }
+    }
     
     
 }
@@ -22,31 +29,39 @@ Rotor::~Rotor(){
     delete [] notch; //avoid memory leak
 }
 
-
-int install_rotor(Rotor **rotor, int num_rotor, const char* path){
-    return 1;
-}
-
 char Rotor::forward_encrypt(const char input){
-    int num_input = input - 'A';
-    return config[num_input] + 'A';
+    char output = wiring[1][input-'A'] + 'A';
+    return output;
 }
 
 
 char Rotor::backward_encrypt(const char input){
     //reverse
-    int num_input = input - 'A';
-    vector<int>::iterator itr = find(config.begin(), config.end(), num_input);
-    int index = distance(config.begin(), itr);
-    return index +'A';
+    for (int i = 0; i < 26; i++){
+        if (wiring[1][i] == input - 'A'){
+            char output = wiring[0][i] + 'A';
+            return output;
+        }
+    }
+    return input;
 }
 
 void Rotor::rotate(){
-    //rotate
-    int tmp = config[0];
-    config.erase (config.begin());
-    vector<int>::iterator it;
-    it = config.end()-num_notch;
-    config.insert (it, tmp);
-    top = config[0];
+    top = wiring[1][1];
+    //tem copy
+    int tmp[2][26];
+    tmp[0][25] = wiring[0][0];
+    tmp[1][25] = wiring[1][0];
+    for (int i = 0; i < 25; i++){
+        tmp[0][i]=wiring[0][i+1];
+        tmp[1][i]=wiring[1][i+1];
+    }
+    
+    //change wiring
+    for (int i = 0; i < 26; i++){
+        wiring[0][i]=tmp[0][i];
+        wiring[1][i]=tmp[1][i];
+    }
+    
 }
+

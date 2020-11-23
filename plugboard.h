@@ -8,9 +8,9 @@
 
 using namespace std;
 class Plugboard {
-    vector <int> config;
+    int swap[26];
 public:
-    Plugboard(const char* path);
+    Plugboard(vector <int> config);
     char encrypt(const char input);
 };
 

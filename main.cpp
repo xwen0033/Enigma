@@ -3,7 +3,7 @@
 #include <cstring>
 #include <vector>
 #include <cstdio>
-//#include "enigma.h"
+#include "enigma.h"
 #include "errors.h"
 
 
@@ -32,7 +32,9 @@ int main(int argc, char **argv){
         config.push_back(position);
     }
     
-    //Enigma(plugboard_config, reflector_config, num_rotor, rotor_config);
+    
+    
+    Enigma myenigma(config);
     
     
     //prompt input message to enrypt/decrypt
@@ -42,9 +44,15 @@ int main(int argc, char **argv){
     
     message = check_message(message);
     
-    //cout << "The encrypted/decrypted message is: " << endl;
-    cout << "You entered: " << message << endl;
+    cout << "The encrypted/decrypted message is: " << endl;
+    string output;
+    for (int i = 0; i < message.length(); i++){
+        char character = message[i];
+        char encoded = myenigma.encrypt(character);
+        output += encoded;
+    }
     
+    cout << output << endl;
     
     cout << "NO_ERROR" << endl;
     return 0;
