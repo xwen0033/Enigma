@@ -34,26 +34,14 @@ int main(int argc, char **argv){
     
     
     //prompt input message to enrypt/decrypt
-    char input;
-    //char output;
     string message;
     cout << "Please enter a message in uppercase to encrypt/decrypt: " << endl;
-    cin >> ws;
+    getline(cin, message);
     
-    while (cin >> ws >> input) {
-        if (input >= 'A' && input <= 'Z'){
-            //output = myenigma.encrypt(input);
-            //message += output;
-            message += input;
-        }else{
-            cerr << endl;
-            cerr << "INVALID_INPUT_CHARACTER" << endl;
-            exit(2);
-        }
-        cout << message << endl;
-    }
+    message = check_message(message);
+    
     //cout << "The encrypted/decrypted message is: " << endl;
-    //cout << "You entered: " << message << endl;
+    cout << "You entered: " << message << endl;
     
     
     cout << "NO_ERROR" << endl;

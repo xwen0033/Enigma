@@ -145,3 +145,19 @@ std::vector <int> check_rotor_pos(int num_rotor,const char* path){
     return position;
 }
 
+std::string check_message(std::string message){
+    int length = message.length();
+    string output;
+    for (int i = 0; i < length; i++){
+        char character = message[i];
+        if (!isspace(character)){
+            if (character >= 'A' && character <= 'Z'){
+                output += character;
+            }else{
+                cerr << "INVALID_INPUT_CHARACTER" << endl;
+                exit(2);
+            }
+        }
+    }
+    return output;
+}

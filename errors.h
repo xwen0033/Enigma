@@ -22,5 +22,6 @@ std::vector <int> check_plugboard(const char* path);
 std::vector <int> check_reflector(const char* path);
 std::vector <int> check_rotor(const char* path);
 std::vector <int> check_rotor_pos(int num_rotor,const char* path);
+std::string check_message(std::string message);
 
 #endif
