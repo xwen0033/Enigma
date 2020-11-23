@@ -34,7 +34,7 @@ int main(int argc, char **argv){
     
     
     
-    Enigma myenigma(config);
+    //Enigma myenigma(config);
     
     
     //prompt input message to enrypt/decrypt
@@ -44,15 +44,15 @@ int main(int argc, char **argv){
     
     message = check_message(message);
     
-    cout << "The encrypted/decrypted message is: " << endl;
-    string output;
-    for (int i = 0; i < message.length(); i++){
-        char character = message[i];
-        char encoded = myenigma.encrypt(character);
-        output += encoded;
-    }
+    //cout << "The encrypted/decrypted message is: " << endl;
+    //string output;
+    //for (int i = 0; i < message.length(); i++){
+        //char character = message[i];
+        //char encoded = myenigma.encrypt(character);
+        //output += encoded;
+    //}
     
-    cout << output << endl;
+    //cout << output << endl;
     
     cout << "NO_ERROR" << endl;
     return 0;
