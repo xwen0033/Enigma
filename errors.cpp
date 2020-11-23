@@ -7,6 +7,7 @@
 #include <algorithm>
 #include "errors.h"
 
+
 using namespace std;
 
 /* checks while reading the file that applies to all config files*/

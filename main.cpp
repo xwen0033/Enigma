@@ -16,20 +16,22 @@ int main(int argc, char **argv){
         exit(1);
     }
     
+    vector <vector <int> > config;
     vector <int> plugboard_config = check_plugboard(argv[1]);
+    config.push_back(plugboard_config);
     vector <int> reflector_config = check_reflector(argv[2]);
+    config.push_back(reflector_config);
     
     int num_rotor = argc - 4;
-    vector <vector <int> > rotor_config;
     if (num_rotor > 0){
         for (int i = 0; i < num_rotor; i++){
-            vector <int> row = check_rotor(argv[3+i]);
-            rotor_config.push_back(row);
+            vector <int> rotor_config = check_rotor(argv[3+i]);
+            config.push_back(rotor_config);
         }
+        vector <int> position = check_rotor_pos(num_rotor,argv[argc-1]);
+        config.push_back(position);
     }
     
-    vector <int> position = check_rotor_pos(num_rotor,argv[argc-1]);
-
     //Enigma(plugboard_config, reflector_config, num_rotor, rotor_config);
     
     
