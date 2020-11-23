@@ -4,6 +4,7 @@
 #include <cstring>
 #include <cctype>
 #include <vector>
+#include <algorithm>
 #include "errors.h"
 
 using namespace std;
