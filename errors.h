@@ -25,7 +25,9 @@
 using namespace std;
 
 std::vector <int> check_general(const char* path);
-int check_error();
-char find_pair(std::vector <int> config, char input);
+std::vector <int> check_plugboard(const char* path);
+std::vector <int> check_reflector(const char* path);
+std::vector <int> check_rotor(const char* path);
+std::vector <int> check_rotor_pos(int num_rotor,const char* path);
 
 #endif

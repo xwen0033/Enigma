@@ -17,9 +17,8 @@ class Enigma{
     Rotor **rotor;
     int num_rotor;
 public:
-    int error;
-    Enigma(int argc, char **argv);
-    char encrypt(const char character);
+    Enigma(std::vector <vector <int> > config);
+    char encrypt(char character);
 };
 
 #endif

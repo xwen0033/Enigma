@@ -2,30 +2,6 @@
 
 using namespace std;
 
-char find_pair(std::vector <int> config, char input){
-    char output;
-    int num_input = input-'A';
-    vector<int>::iterator itr = find(config.begin(), config.end(), num_input);
-    
-    // input swapped in plugboard config; will always find input in reflector config
-    if (itr != config.end()){
-        int index = distance(config.begin(), itr);
-        int pair;
-        if (index%2 == 1){ // odd index: find its connection an element before
-            pair = config[index-1];
-        } else{ // even index: find its connection an element after
-            pair = config[index+1];
-        }
-        output = pair + 'A';
-    }else {
-        output = input;
-    }
-    return output;
-}
-
-
-static int errorstatus = 0;
-
 /* checks while reading the file that applies to all config files*/
 std::vector <int> check_general(const char* path){
     
@@ -33,13 +9,14 @@ std::vector <int> check_general(const char* path){
     in.open(path);
     
     if (in.fail()||!in.is_open()) {
-        errorstatus = 11;
+        cerr << "ERROR_OPENING_CONFIGURATION_FILE" << endl;
+        exit(11);
     }
     
     int number;
     vector <int> config; //save each number into a config vector
     // check while reading the file until eof is reached
-    while (!in.eof() && errorstatus == 0){
+    while (!in.eof()){
         char character;
         in >> ws;
         character = in.peek();
@@ -49,28 +26,32 @@ std::vector <int> check_general(const char* path){
         }
         
         if (!isdigit(character)){
-            errorstatus = 4;
+            cerr << "NON_NUMERIC_CHARACTER" << endl;
+            exit(4);
+            
         }else{
             in >> number;
             
             if (number < 0 || number > 25){
-                errorstatus = 3;
+                cerr << "INVALID_INDEX" << endl;
+                exit(3);
             }
             // if number already exists in config
             // sth mapped twice
             if ( find(config.begin(), config.end(), number) != config.end() ){
                 if (strchr(path,'plug')!= NULL){
-                    errorstatus = 5;
-                }
+                    cerr << "IMPOSSIBLE_PLUGBOARD_CONFIGURATION" << endl;
+                    exit(5);                }
                 
                 if (strchr(path,'refl')!= NULL){
-                    errorstatus = 9;
+                    cerr << "INVALID_REFLECTOR_MAPPING" << endl;
+                    exit(9);
                 }
                 //the first 26 numbers cannot repeat in roto config
                 if (config.size() < 26 && strchr(path,'roto')!= NULL){
-                        errorstatus = 7;
-                    }
-                }
+                    cerr << "INVALID_ROTOR_MAPPING" << endl;
+                    exit(7);                }
+            }
             config.push_back(number);
         }
 }
@@ -78,8 +59,83 @@ std::vector <int> check_general(const char* path){
     in.close();
     return config;
 }
+
+std::vector <int> check_plugboard(const char* path){
+    vector <int> config = check_general(path);
+    int length = config.size();
+    // plugboard require even number of parameters
+    if (length%2 != 0){
+        cerr << "INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS" << endl;
+        exit(6);
+    }
+    return config;
+}
+std::vector <int> check_reflector(const char* path){
+    vector <int> config = check_general(path);
+    int length = config.size();
+    // reflector require 13 pairs
+    if (length/2 != 13){
+        cerr << "INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS" << endl;
+        exit(10);
+    }
+    return config;
+}
+
+std::vector <int> check_rotor(const char* path){
+    vector <int> config = check_general(path);
     
-int check_error(){
-    return errorstatus;
+    int length = config.size();
+    int num_notch = length - 26;
+    
+    //if does not provide a mapping for some input or no notch
+    if (num_notch < 0){
+        cerr << "INVALID_ROTOR_MAPPING" << endl;
+        exit(7);
+    }
+    //situation where more than one input is mapped to the same output
+    // was already accounted for during check general
+    return config;
+}
+
+std::vector <int> check_rotor_pos(int num_rotor,const char* path){
+    ifstream in;
+    in.open(path);
+    
+    if (in.fail()||!in.is_open()){
+        cerr << "ERROR_OPENING_CONFIGURATION_FILE" << endl;
+        exit(11);
+    }
+    
+    int number;
+    vector <int> position;
+    while (!in.eof()) {
+        char character;
+        in >> ws;
+        character = in.peek();
+        
+        if (character == EOF) {
+            break;
+        }
+        
+        if (!isdigit(character)){
+            cerr << "NON_NUMERIC_CHARACTER" << endl;
+            exit(4);
+        }else{
+            in >> number;
+            
+            if (number < 0 || number > 25){
+                cerr << "INVALID_INDEX" << endl;
+                exit(3);
+            }
+            position.push_back(number);
+        }
+    }
+    
+    int length = position.size();
+    if (length < num_rotor){
+        cerr << "NO_ROTOR_STARTING_POSITION" << endl;
+        exit(8);
+    }
+    return position;
 }
 

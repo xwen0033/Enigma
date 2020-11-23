@@ -10,7 +10,6 @@ using namespace std;
 class Plugboard {
     vector <int> config;
 public:
-    int error;
     Plugboard(const char* path);
     char encrypt(const char input);
 };
