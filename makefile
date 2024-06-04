@@ -1,14 +1,11 @@
-enigma: main.o errors.o enigma.o plugboard.o rotor.o reflector.o
-	g++ -Wall -g main.o errors.o enigma.o plugboard.o rotor.o reflector.o -o enigma
+enigma: main.o enigma.o plugboard.o rotor.o reflector.o
+	g++ -Wall -g main.o enigma.o plugboard.o rotor.o reflector.o -o enigma
 
 main.o: main.cpp enigma.h errors.h
 	g++ -Wall -g -c main.cpp
 
 enigma.o: enigma.cpp enigma.h plugboard.h rotor.h reflector.h
 	g++ -Wall -g -c enigma.cpp
-
-errors.o: errors.cpp errors.h
-	g++ -Wall -g -c errors.cpp
 
 plugboard.o: plugboard.cpp plugboard.h errors.h
 	g++ -Wall -g -c plugboard.cpp

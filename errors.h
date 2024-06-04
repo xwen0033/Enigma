@@ -15,13 +15,4 @@
 #define ERROR_OPENING_CONFIGURATION_FILE          11
 #define NO_ERROR                                  0
 
-using namespace std;
-
-std::vector <int> check_general(const char* path);
-std::vector <int> check_plugboard(const char* path);
-std::vector <int> check_reflector(const char* path);
-std::vector <int> check_rotor(const char* path);
-std::vector <int> check_rotor_pos(int num_rotor,const char* path);
-std::string check_message(std::string message);
-
 #endif

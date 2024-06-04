@@ -1,0 +1,5 @@
+Welcome to the Enigma machine!
+This machine will encrypt your message.
+
+Please input the plaintext in uppercase to encrypt : 
+The ciphertext is DRVAOFFA

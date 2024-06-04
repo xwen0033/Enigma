@@ -1,24 +1,22 @@
 #ifndef ENIGMA_H
 #define ENIGMA_H
 
-#include <iostream>
-#include <cstdio>
-#include <vector>
 #include "errors.h"
 #include "plugboard.h"
 #include "reflector.h"
 #include "rotor.h"
 
-using namespace std;
-
 class Enigma{
-    Plugboard *plugboard;
-    Reflector *reflector;
-    Rotor **rotor;
+    Plugboard plugboard;
+    Reflector reflector;
+    Rotor *rotors;
     int num_rotor;
+
 public:
-    Enigma(std::vector <vector <int> > config);
+    Enigma();
+    int check_config(int argc,char** argv);
     char encrypt(char character);
+    ~Enigma();
 };
 
 #endif

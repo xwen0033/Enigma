@@ -1,25 +1,25 @@
 #ifndef ROTOR_H
 #define ROTOR_H
 
-#include <iostream>
-#include <fstream>
-#include <cctype>
-#include <vector>
-#include <cstdio>
-#include "errors.h"
-
-using namespace std;
 
 class Rotor {
     int wiring[2][26];
-public:
-    int *notch;
+    int notch[26];
     int num_notch;
     int top;
-    Rotor(vector <int> config, int topp);
-    ~Rotor();
-    char forward_encrypt(const char input);
-    char backward_encrypt(const char input);
+    Rotor* left;
+    Rotor* right;
+public:
+    Rotor();
+    int getTop();
+    int check_config(int num_roter, int rot_position, char **argv);
+    void set_left_rotor(Rotor* left_rotor);
+    void set_right_rotor(Rotor* right_rotor);
+    void set_position(int pos);
+    bool on_notch();
+    int indexof(int target);
+    int forward_encrypt(int input);
+    int backward_encrypt(int input);
     void rotate();
 };
 
